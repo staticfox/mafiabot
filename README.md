@@ -14,7 +14,5 @@ Setup Note
 ==========
 
 The default config requires that you enter a nick and channel.
-
 In order to ensure that this has been done, you must also change
-
 the value for misc.hasreadconfig from false to true.
