@@ -1,6 +1,6 @@
 from getconfig import get_config_value
 from irc.bot import ServerSpec, SingleServerIRCBot
-
+import sys
 
 class MafiaBot(SingleServerIRCBot):
 
@@ -18,5 +18,9 @@ class MafiaBot(SingleServerIRCBot):
         connection.join(get_config_value('network.channel'))
 
 if __name__ == '__main__':
+    hrc = bool(int(get_config_value('misc.hasreadconfig')))
+    if not hrc:
+        print('You need to read and modify the config file!')
+        sys.exit(0)
     bot = MafiaBot(get_config_value('network.server'), get_config_value('network.nick'), get_config_value('network.nickserv'))
     bot.start()

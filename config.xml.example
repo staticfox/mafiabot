@@ -7,6 +7,6 @@
     <channel></channel>
   </network>
   <misc>
-    <hasreadconfig>false</hasreadconfig>
+    <hasreadconfig>0</hasreadconfig>
   </misc>
 </root>
