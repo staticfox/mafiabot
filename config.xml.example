@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<network>
+  <server>irc.freenode.net</server>
+  <nick></nick>
+  <channel></channel>
+</network>
+<misc>
+  <hasreadconfig>false</hasreadconfig>
+</misc>
