@@ -1,5 +1,6 @@
 from getconfig import get_config_value
 from irc.bot import ServerSpec, SingleServerIRCBot
+import messages
 import sys
 
 class MafiaBot(SingleServerIRCBot):
@@ -12,7 +13,10 @@ class MafiaBot(SingleServerIRCBot):
         return "Mafiabot - github.com/csssuf/mafiabot"
 
     def on_pubmsg(self, connection, e):
-        pass
+        messages.public(connection, e)
+
+    def on_privmsg(self, connection, e):
+        messages.private(connection, e)
 
     def on_welcome(self, connection, e):
         connection.join(get_config_value('network.channel'))
