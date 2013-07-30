@@ -7,6 +7,8 @@
     <channel></channel>
   </network>
   <misc>
+    <!--Note: admins should be a list of admins, separated by a '/'.-->
+    <admins>csssuf/nickthename</admins>
     <hasreadconfig>0</hasreadconfig>
   </misc>
 </root>
