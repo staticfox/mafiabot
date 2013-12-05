@@ -21,4 +21,15 @@ def handler(c, e, bot):
         elif cmd == 'enable' and bot.state == 0:
             bot.state = 1
             c.privmsg(e.target, "Enabling.")
-
+        if bot.state == 1:
+            if cmd == 'start':
+                gamers = []
+                for key in bot.users:
+                    if bot.users[key]==1:
+                        gamers.append(key)
+                print('Starting with {0}'.format(gamers))
+    if bot.state == 1:
+        if cmd == 'join':
+            bot.users[e.source.nick]=1
+        if cmd == 'leave':
+            bot.users[e.source.nick]=0

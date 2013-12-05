@@ -33,15 +33,19 @@ class MafiaBot(SingleServerIRCBot):
             pass
         else:
             print("Welcome, {0}".format(e.source.nick))
+            self.users[e.source.nick]=0
 
     def on_quit(self, connection, e):
         print("Why'd you quit?, {0}".format(e.source.nick))
+        self.users.pop(e.source.nick)
 
     def on_part(self, connection, e):
         print("Gparted, {0}".format(e.source.nick))
+        self.users.pop(e.source.nick)
 
     def on_privmsg(self, connection, e):
         messages.handler(connection, e, self)
+        print(self.users)
 
     def on_welcome(self, connection, e):
         self.mchan=get_config_value('network.channel')
