@@ -8,11 +8,9 @@ def public(c, e, bot):
         return
     print('proceeding with command %s.' % e.arguments[0][len(cmdchar):])
     cmd = e.arguments[0][len(cmdchar):]
-    print('%s' % cmd)
     args = cmd.split(' ')[1:]
     cmd = cmd.split(' ')[0]
-    print('%s, %s, %s' % (cmd, args, e.source))
-    if cmd == 'quit' and e.source.split('!')[0] in admins:
+    if cmd == 'quit' and e.source.nick in admins:
         c.disconnect('Quitted from IRC by %s' % e.source)
         sys.exit(0)
     pass

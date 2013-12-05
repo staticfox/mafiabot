@@ -1,0 +1,8 @@
+- At start of game, non-participating channel members get quieted.
+- When a player dies, they get quieted.
+- At night, channel gets set to +m.
+- Anyone that joins mid-game is auto-quieted.
+- When someone joins the channel, their hostmask is added as a key in the
+  player dict.
+- When someone leaves the channel, their hostmask is removed from the keys in
+  the player dict.
