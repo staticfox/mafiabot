@@ -7,7 +7,7 @@ from time import sleep
 class MafiaBot(SingleServerIRCBot):
     #0 - Disabled 1 - Signup 2 - Confirmation 3 - Ingame
     state = 1
-    players = {}
+    users = {}
 
     def __init__(self, server, nick, nickserv, port=6667):
         miscinfo = ServerSpec(server, port, nickserv)
@@ -17,23 +17,36 @@ class MafiaBot(SingleServerIRCBot):
         return "Mafiabot - github.com/csssuf/mafiabot"
 
     def on_pubmsg(self, connection, e):
-        print(e.source.__dict__)
-        print(type(e.source))
-        print(dir(self))
-        for key in self.channels:
-            print(self.channels[key].users())
-            print(self.channels[key].voiced())
+        print(self.channels)
+        print(self.channels[self.mchan].users())    
         messages.public(connection, e, self)
+    
+    def on_namreply(self, connection,e):
+        print(self.channels)
+        print(self.channels[self.mchan].users())    
+
+    def on_join(self, connection, e):
+        if e.source.nick == connection.get_nickname():
+            pass
+        else:
+            print("Welcome, {0}".format(e.source.nick))
+
+    def on_quit(self, connection, e):
+        print("Why'd you quit?, {0}".format(e.source.nick))
+
+    def on_part(self, connection, e):
+        print("Gparted, {0}".format(e.source.nick))
 
     def on_privmsg(self, connection, e):
         messages.private(connection, e, self)
 
     def on_welcome(self, connection, e):
-        connection.join(get_config_value('network.channel'))
-        print(self.channels)
+        self.mchan=get_config_value('network.channel')
+        connection.join(self.mchan)
+
+    def on_connect(self, connection, e):
         for key in self.channels:
             print(self.channels[key].users())
-            print(self.channels[key].voiced())
 
     def on_kick(self, c, e):
         sleep(1)
