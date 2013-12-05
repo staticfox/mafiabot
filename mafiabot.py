@@ -2,6 +2,7 @@ from getconfig import get_config_value
 from irc.bot import ServerSpec, SingleServerIRCBot
 import messages
 import sys
+from time import sleep
 
 class MafiaBot(SingleServerIRCBot):
     #0 - Disabled 1 - Signup 2 - Confirmation 3 - Ingame
@@ -33,6 +34,10 @@ class MafiaBot(SingleServerIRCBot):
         for key in self.channels:
             print(self.channels[key].users())
             print(self.channels[key].voiced())
+
+    def on_kick(self, c, e):
+        sleep(1)
+        c.join(e.target)
 if __name__ == '__main__':
     hrc = bool(int(get_config_value('misc.hasreadconfig')))
     if not hrc:
