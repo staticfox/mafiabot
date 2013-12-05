@@ -16,6 +16,12 @@ class MafiaBot(SingleServerIRCBot):
         return "Mafiabot - github.com/csssuf/mafiabot"
 
     def on_pubmsg(self, connection, e):
+        print(e.source.__dict__)
+        print(type(e.source))
+        print(dir(self))
+        for key in self.channels:
+            print(self.channels[key].users())
+            print(self.channels[key].voiced())
         messages.public(connection, e, self)
 
     def on_privmsg(self, connection, e):
@@ -23,7 +29,10 @@ class MafiaBot(SingleServerIRCBot):
 
     def on_welcome(self, connection, e):
         connection.join(get_config_value('network.channel'))
-
+        print(self.channels)
+        for key in self.channels:
+            print(self.channels[key].users())
+            print(self.channels[key].voiced())
 if __name__ == '__main__':
     hrc = bool(int(get_config_value('misc.hasreadconfig')))
     if not hrc:
