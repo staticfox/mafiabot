@@ -2,7 +2,8 @@
 - When a player dies, they get quieted.
 - At night, channel gets set to +m.
 - Anyone that joins mid-game is auto-quieted.
-- When someone joins the channel, their hostmask is added as a key in the
+- We can set +N to stop people changing nicks, so we only need to keep track of them
+- When someone joins the channel, their nick is added as a key in the
   player dict.
-- When someone leaves the channel, their hostmask is removed from the keys in
+- When someone leaves the channel, their nick is removed from the keys in
   the player dict.
