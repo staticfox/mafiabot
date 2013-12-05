@@ -20,7 +20,7 @@ class MafiaBot(SingleServerIRCBot):
         print(self.test)
 
     def on_privmsg(self, connection, e):
-        messages.private(connection, e)
+        messages.private(connection, e, self)
 
     def on_welcome(self, connection, e):
         connection.join(get_config_value('network.channel'))

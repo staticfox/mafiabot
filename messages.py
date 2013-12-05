@@ -1,4 +1,4 @@
-def public(c, e):
+def public(c, e, bot):
     print(e.arguments)
     print(e.source.nick)
     print(e.source)
@@ -8,5 +8,5 @@ def public(c, e):
     print(e.__dict__)
     pass
 
-def private(c, e):
+def private(c, e, bot):
     pass
