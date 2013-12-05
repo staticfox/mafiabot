@@ -10,6 +10,7 @@ class MafiaBot(SingleServerIRCBot):
     users = {}
 
     def __init__(self, server, nick, nickserv, port=6667):
+        self.nick = nick
         miscinfo = ServerSpec(server, port, nickserv)
         SingleServerIRCBot.__init__(self, [miscinfo], nick, nick)
     
@@ -17,14 +18,16 @@ class MafiaBot(SingleServerIRCBot):
         return "Mafiabot - github.com/csssuf/mafiabot"
 
     def on_pubmsg(self, connection, e):
-        print(self.channels)
-        print(self.channels[self.mchan].users())    
-        messages.public(connection, e, self)
+        print(self.users)
+        messages.handler(connection, e, self)
     
     def on_namreply(self, connection,e):
         print(self.channels)
         print(self.channels[self.mchan].users())    
-
+        print(type(self.channels[self.mchan].users()))
+        for x in self.channels[self.mchan].users():
+            if x != self.nick and x!= "ChanServ":
+                self.users[x]=0
     def on_join(self, connection, e):
         if e.source.nick == connection.get_nickname():
             pass
@@ -38,16 +41,14 @@ class MafiaBot(SingleServerIRCBot):
         print("Gparted, {0}".format(e.source.nick))
 
     def on_privmsg(self, connection, e):
-        messages.private(connection, e, self)
+        messages.handler(connection, e, self)
 
     def on_welcome(self, connection, e):
         self.mchan=get_config_value('network.channel')
         connection.join(self.mchan)
 
     def on_connect(self, connection, e):
-        for key in self.channels:
-            print(self.channels[key].users())
-
+        pass
     def on_kick(self, c, e):
         sleep(1)
         c.join(e.target)
