@@ -17,7 +17,6 @@ class MafiaBot(SingleServerIRCBot):
 
     def on_pubmsg(self, connection, e):
         messages.public(connection, e, self)
-        print(self.test)
 
     def on_privmsg(self, connection, e):
         messages.private(connection, e, self)

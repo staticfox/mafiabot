@@ -1,11 +1,9 @@
+from getconfig import get_config_value
+cmdchar = get_config_value('misc.cmdchar')
+
 def public(c, e, bot):
-    print(e.arguments)
-    print(e.source.nick)
-    print(e.source)
-    print(e.target)
-    print(e)
-    print(dir(e))
-    print(e.__dict__)
+    if e.arguments[0][:len(cmdchar)] != cmdchar:
+        return
     pass
 
 def private(c, e, bot):
