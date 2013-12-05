@@ -5,12 +5,12 @@
 		<nick></nick>
 		<nickserv></nickserv>
 		<channel></channel> 
-		<cmdchar>!</cmdchar>
 	</network>
 	<misc>
 		<!--Note: admins should be a list of admins, separated by a '/'.-->
 		<admins>csssuf/nickthename</admins>
 		<hasreadconfig>0</hasreadconfig>
+		<cmdchar>!</cmdchar>
 	</misc>
 	<game>
 		<votetimelimit>5</votetimelimit>
