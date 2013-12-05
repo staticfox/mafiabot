@@ -4,6 +4,9 @@ import messages
 import sys
 
 class MafiaBot(SingleServerIRCBot):
+    #0 - Disabled 1 - Signup 2 - Confirmation 3 - Ingame
+    state = 1
+    players = {}
 
     def __init__(self, server, nick, nickserv, port=6667):
         miscinfo = ServerSpec(server, port, nickserv)
@@ -13,7 +16,8 @@ class MafiaBot(SingleServerIRCBot):
         return "Mafiabot - github.com/csssuf/mafiabot"
 
     def on_pubmsg(self, connection, e):
-        messages.public(connection, e)
+        messages.public(connection, e, self)
+        print(self.test)
 
     def on_privmsg(self, connection, e):
         messages.private(connection, e)
