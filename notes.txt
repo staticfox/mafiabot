@@ -7,3 +7,35 @@
   player dict.
 - When someone leaves the channel, their nick is removed from the keys in
   the player dict.
+
+Bot states:
+
+0 - Disabled
+1 - Waiting for joins
+2 - Confirming
+3 - Assigning roles/Prep (shouldn't take long)
+4 - Day
+5 - Night
+
+User statuses:
+        [ -XXX
+Quiet   [ -102 - Quieted, dead
+        [ -101 - Quieted, not in game
+
+Nullish [ -1   - Staff, not in game
+        [ 0    - Not joined
+
+Waiting [ 1    - Joined, not confirmed
+        [ 2    - Confirmed, waiting for role
+
+Town    [ 3    - VT
+        [ 100  - Some town power role
+         
+3rd     [ 101  - Survivor
+party   [ 200  - SK?
+         
+Mafia   [ 201  - Mafia Goon
+        [ 250  - Some mafia PR
+         
+Other   [ 251  - Werewolf goon
+Scum    [ 300  - Some misc scum
