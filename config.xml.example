@@ -13,9 +13,9 @@
 		<cmdchar>!</cmdchar>
 	</misc>
 	<game>
-		<votetimelimit>5</votetimelimit>
-		<confirmtimelimit>5</confirmtimelimit>
+		<votetimelimit>10</votetimelimit>
+		<confirmtimelimit>30</confirmtimelimit>
         <!--Currently unused, maybe in the future-->
-		<jointimelimit>5</jointimelimit>
+		<jointimelimit>99</jointimelimit>
 	</game>
 </root>

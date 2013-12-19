@@ -8,12 +8,21 @@ class MafiaBot(SingleServerIRCBot):
     #0 - Disabled 1 - Signup 2 - Confirmation 3 - Ingame
     state = 1
     users = {}
+    mchan = "" #Main channel for game
+    mserv = "" #Main server  for game
 
     def __init__(self, server, nick, nickserv, port=6667):
         self.nick = nick
         miscinfo = ServerSpec(server, port, nickserv)
         SingleServerIRCBot.__init__(self, [miscinfo], nick, nick)
     
+    def say_main(self, msg, target="chan"):
+        print(msg)
+        print(target)
+        if target == "chan":
+            target=self.mchan
+        self.mserv.privmsg(target,msg)
+
     def get_version(self):
         return "Mafiabot - github.com/csssuf/mafiabot"
 
@@ -49,6 +58,7 @@ class MafiaBot(SingleServerIRCBot):
 
     def on_welcome(self, connection, e):
         self.mchan=get_config_value('network.channel')
+        self.mserv=connection
         connection.join(self.mchan)
 
     def on_connect(self, connection, e):
@@ -56,6 +66,7 @@ class MafiaBot(SingleServerIRCBot):
     def on_kick(self, c, e):
         sleep(1)
         c.join(e.target)
+
 if __name__ == '__main__':
     hrc = bool(int(get_config_value('misc.hasreadconfig')))
     if not hrc:
