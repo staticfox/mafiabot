@@ -14,5 +14,8 @@
 	</misc>
 	<game>
 		<votetimelimit>5</votetimelimit>
+		<confirmtimelimit>5</confirmtimelimit>
+        <!--Currently unused, maybe in the future-->
+		<jointimelimit>5</jointimelimit>
 	</game>
 </root>
