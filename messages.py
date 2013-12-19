@@ -29,7 +29,14 @@ def handler(c, e, bot):
                         gamers.append(key)
                 print('Starting with {0}'.format(gamers))
     if bot.state == 1:
-        if cmd == 'join':
+        if cmd == 'join' and bot.users[e.source.nick] in [0,-1,-3]:
             bot.users[e.source.nick]=1
-        if cmd == 'leave':
+        if cmd == 'leave' and bot.users[e.source.nick] in [1,2]:
+            bot.users[e.source.nick]=0
+    elif bot.state == 2:
+        if cmd == 'join' and bot.users[e.source.nick] in [0,-1,-3]:
+            bot.users[e.source.nick]=2
+        if cmd == 'confirm' and bot.users[e.source.nick]==1:
+            bot.users[e.source.nick]=2
+        if cmd == 'leave' and bot.users[e.source.nick] in [1,2]:
             bot.users[e.source.nick]=0

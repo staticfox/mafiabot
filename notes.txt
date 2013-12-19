@@ -22,6 +22,8 @@ User statuses:
 Quiet   [ -102 - Quieted, dead
         [ -101 - Quieted, not in game
 
+        [ -3   - Non-staff non-player
+        [ -2   - Already Quieted
 Nullish [ -1   - Staff, not in game
         [ 0    - Not joined
 
