@@ -18,8 +18,7 @@ Bot states:
 5 - Night
 
 User statuses:
-        [ -66  - Dead player
-Nullish [ -1   - Staff, not in game
+Nullish [ -66  - Dead player
         [ 0    - Not joined
 
 Waiting [ 1    - Joined, not confirmed
