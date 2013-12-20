@@ -13,6 +13,7 @@ class MafiaBot(SingleServerIRCBot):
 
     def __init__(self, server, nick, nickserv, port=6667):
         self.nick = nick
+        self.userpass=get_config_value('network.nickserv')
         miscinfo = ServerSpec(server, port, nickserv)
         SingleServerIRCBot.__init__(self, [miscinfo], nick, nick)
     
@@ -22,6 +23,13 @@ class MafiaBot(SingleServerIRCBot):
         if target == "chan":
             target=self.mchan
         self.mserv.privmsg(target,msg)
+
+    def voice(self,user,on):
+        if on:
+            toggle="+"
+        else:
+            toggle="-"
+        self.mserv.mode(self.mchan,"{0}v {1}".format(toggle,user))
 
     def get_version(self):
         return "Mafiabot - github.com/csssuf/mafiabot"
@@ -34,6 +42,8 @@ class MafiaBot(SingleServerIRCBot):
         print(self.channels)
         print(self.channels[self.mchan].users())    
         print(type(self.channels[self.mchan].users()))
+        print(self.channels[self.mchan].modes)
+        print(self.channels[self.mchan].voiceddict)
         for x in self.channels[self.mchan].users():
             if x != self.nick and x!= "ChanServ":
                 self.users[x]=0
@@ -62,7 +72,8 @@ class MafiaBot(SingleServerIRCBot):
         connection.join(self.mchan)
 
     def on_connect(self, connection, e):
-        pass
+        self.say_main("IDENTIFY {0} {1}".format(self.nick,self.userpass),
+                    "NickServ")
     def on_kick(self, c, e):
         sleep(1)
         c.join(e.target)

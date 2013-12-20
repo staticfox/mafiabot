@@ -14,6 +14,13 @@ def handler(c, e, bot):
     args = cmd.split(' ')[1:]
     cmd = cmd.split(' ')[0]
     if e.source.nick in admins:
+        if cmd == 'voicelist':
+            print(bot.channels[bot.mchan].voiceddict)
+        if cmd == 'voiceall':
+            for user in bot.users:
+                bot.voice(user,True)
+        if cmd == 'reset':
+            modes.purge_voice(bot)
         if cmd == 'talk':
             bot.say_main(" ".join(args))
         if cmd == 'quit': 
