@@ -2,6 +2,7 @@ from getconfig import get_config_value
 from irc.bot import ServerSpec, SingleServerIRCBot
 import messages
 import sys
+import configparser
 from time import sleep
 
 class MafiaBot(SingleServerIRCBot):
@@ -11,11 +12,15 @@ class MafiaBot(SingleServerIRCBot):
     mchan = "" #Main channel for game
     mserv = "" #Main server  for game
 
-    def __init__(self, server, nick, nickserv, port=6667):
-        self.nick = nick
-        self.userpass=get_config_value('network.nickserv')
-        miscinfo = ServerSpec(server, port, nickserv)
-        SingleServerIRCBot.__init__(self, [miscinfo], nick, nick)
+    #def __init__(self, server, nick, nickserv, port=6667):
+    def __init__(self, config, port=6667):
+        self.config = config
+        self.nick = config['network']['nick']
+        self.userpass=config['network']['nickserv']
+        miscinfo = ServerSpec(config['network']['server'], 
+                              port, 
+                              config['network']['nickserv'])
+        SingleServerIRCBot.__init__(self, [miscinfo], self.nick, self.nick)
     
     def say_main(self, msg, target="chan"):
         print(msg)
@@ -67,7 +72,7 @@ class MafiaBot(SingleServerIRCBot):
         print(self.users)
 
     def on_welcome(self, connection, e):
-        self.mchan=get_config_value('network.channel')
+        self.mchan="#" + config['network']['channel']
         self.mserv=connection
         connection.join(self.mchan)
 
@@ -79,9 +84,21 @@ class MafiaBot(SingleServerIRCBot):
         c.join(e.target)
 
 if __name__ == '__main__':
-    hrc = bool(int(get_config_value('misc.hasreadconfig')))
+    config = configparser.RawConfigParser()
+    config.read('config.cfg')
+    hrc = config.getboolean('misc','hasreadconfig')
     if not hrc:
         print('You need to read and modify the config file!')
         sys.exit(0)
-    bot = MafiaBot(get_config_value('network.server'), get_config_value('network.nick'), get_config_value('network.nickserv'))
+    #My crystal ball says this might come up, good to watch
+    #users' backs, especially if users are us
+    minplay=config['gamemodes']['minplayers']
+    maxplay=config['gamemodes']['maxplayers']
+    if minplay>maxplay:
+        print('Your gamemodes are screwed up')
+        sys.exit(0)
+    print(config['gamemodes']['minplayers'])
+    print(config['game']['jointimelimit'])
+    print(config['gamemodes']['maxplayers'])
+    bot = MafiaBot(config)
     bot.start()

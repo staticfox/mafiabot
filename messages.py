@@ -2,10 +2,11 @@ from getconfig import get_config_value
 import sys
 import modes
 
-cmdchar = get_config_value('misc.cmdchar')
-admins = get_config_value('misc.admins').split('/')
-nick = get_config_value('network.nick')
 def handler(c, e, bot):
+    cmdchar = bot.config['misc']['cmdchar']
+    admins = bot.config['misc']['admins'].split('/')
+    nick = bot.config['network']['nick']
+
     if e.arguments[0][:len(cmdchar)] != cmdchar:
         return
     if e.source.nick == nick:
