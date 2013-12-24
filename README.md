@@ -8,8 +8,6 @@ Dependencies
 
 irc (python library, gentoo dev-python/irc)
 
-lxml
-
 Setup Note
 ==========
 
