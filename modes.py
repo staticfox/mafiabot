@@ -19,8 +19,8 @@ def confirms(bot):
     if len(gamers) > 0:
         bot.say_main('Unconfirmed players: {0}'.format(", ".join(gamers)))
         bot.say_main('Unconfirmed players please message me "!confirm"')
-    defer(int(bot.config['game']['confirmtimelimit'])-10,confirms_warn,bot)
-    defer(int(bot.config['game']['confirmtimelimit']),wrap_start,bot)
+    defer(int(bot.config['time']['confirmtimelimit'])-10,confirms_warn,bot)
+    defer(int(bot.config['time']['confirmtimelimit']),wrap_start,bot)
 
 def confirms_warn(bot):
     bot.say_main("One minute remains, unconfirmed users:")

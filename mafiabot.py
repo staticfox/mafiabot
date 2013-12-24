@@ -97,7 +97,7 @@ if __name__ == '__main__':
         print('Your gamemodes are screwed up')
         sys.exit(0)
     print(config['gamemodes']['minplayers'])
-    print(config['game']['jointimelimit'])
+    print(config['time']['jointimelimit'])
     print(config['gamemodes']['maxplayers'])
     bot = MafiaBot(config)
     bot.start()
