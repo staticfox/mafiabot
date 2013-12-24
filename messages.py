@@ -1,4 +1,3 @@
-from getconfig import get_config_value
 import sys
 import modes
 

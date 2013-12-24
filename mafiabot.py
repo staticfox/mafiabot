@@ -1,4 +1,3 @@
-from getconfig import get_config_value
 from irc.bot import ServerSpec, SingleServerIRCBot
 import messages
 import sys
