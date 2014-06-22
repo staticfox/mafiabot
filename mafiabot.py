@@ -15,7 +15,9 @@ class MafiaBot(SingleServerIRCBot):
     def __init__(self, config, port=6667):
         self.config = config
         self.nick = config['network']['nick']
-        self.userpass=config['network']['nickserv']
+        self.service = config['network']['service']
+        self.username = config['network']['nickservacc']
+        self.userpass = config['network']['servicepass']
         miscinfo = ServerSpec(config['network']['server'], 
                               port, 
                               config['network']['nickserv'])
@@ -76,8 +78,13 @@ class MafiaBot(SingleServerIRCBot):
         connection.join(self.mchan)
 
     def on_connect(self, connection, e):
-        self.say_main("IDENTIFY {0} {1}".format(self.nick,self.userpass),
-                    "NickServ")
+        if self.userpass == "":
+            pass
+        elif self.username == "":
+            self.say_main("IDENTIFY {0} {1} {2}".format(self.nick,self.userpass,self.service))
+        else: 
+            self.say_main("IDENTIFY {0} {1} {2} {3}".format(self.nick,self.username,self.userpass,self.service))
+
     def on_kick(self, c, e):
         sleep(1)
         c.join(e.target)
