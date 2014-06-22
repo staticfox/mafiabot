@@ -2,6 +2,7 @@ from irc.bot import ServerSpec, SingleServerIRCBot
 import messages
 import sys
 import configparser
+import os.path
 from time import sleep
 
 class MafiaBot(SingleServerIRCBot):
@@ -20,7 +21,7 @@ class MafiaBot(SingleServerIRCBot):
         self.userpass = config['network']['servicepass']
         miscinfo = ServerSpec(config['network']['server'], 
                               port, 
-                              config['network']['nickserv'])
+                              config['network']['servicepass'])
         SingleServerIRCBot.__init__(self, [miscinfo], self.nick, self.nick)
     
     def say_main(self, msg, target="chan"):
@@ -78,7 +79,7 @@ class MafiaBot(SingleServerIRCBot):
         connection.join(self.mchan)
 
     def on_connect(self, connection, e):
-        if self.userpass == "":
+        if self.userpass == False:
             pass
         elif self.username == "":
             self.say_main("IDENTIFY {0} {1} {2}".format(self.nick,self.userpass,self.service))
@@ -90,6 +91,9 @@ class MafiaBot(SingleServerIRCBot):
         c.join(e.target)
 
 if __name__ == '__main__':
+    if os.path.isfile('config.cfg') == False:
+        print('You need a config file! Move config.cfg.exmaple to config.cfg')
+        sys.exit(0)
     config = configparser.RawConfigParser()
     config.read('config.cfg')
     hrc = config.getboolean('misc','hasreadconfig')
@@ -104,7 +108,7 @@ if __name__ == '__main__':
         print('Your gamemodes are screwed up')
         sys.exit(0)
     print(config['gamemodes']['minplayers'])
-    print(config['time']['jointimelimit'])
+    print(config['game']['jointimelimit'])
     print(config['gamemodes']['maxplayers'])
     bot = MafiaBot(config)
     bot.start()
